@@ -1,22 +1,34 @@
 import { useRef, useState, useEffect } from "react";
 
-const Canvas = () => {
+const Canvas = ({ color, size, tool }) => {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
 
+  // setup canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.height = window.innerHeight - 60;
 
     const ctx = canvas.getContext("2d");
     ctx.lineCap = "round";
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 3;
-
     ctxRef.current = ctx;
   }, []);
+
+  // update tool settings
+  useEffect(() => {
+    const ctx = ctxRef.current;
+
+    if (tool === "eraser") {
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.lineWidth = size * 2;
+    } else {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.strokeStyle = color;
+      ctx.lineWidth = size;
+    }
+  }, [color, size, tool]);
 
   const startDrawing = (e) => {
     ctxRef.current.beginPath();
@@ -43,8 +55,8 @@ const Canvas = () => {
       onMouseUp={stopDrawing}
       onMouseLeave={stopDrawing}
       style={{
-        border: "1px solid #ccc",
         display: "block",
+        background: "white",
       }}
     />
   );
