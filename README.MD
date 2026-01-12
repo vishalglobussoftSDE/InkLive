@@ -1,10 +1,3 @@
-Nice 👍 This is a **very good habit**—writing a README before building the project.
-Below is a **clean, professional README** you can directly use for your project.
-
-I’ve written it in **simple English**, recruiter-friendly, and beginner-clear.
-
----
-
 # 🎨 Scribble Live – Real-Time Drawing & Guessing Game
 
 Scribble Live is a **real-time multiplayer drawing and guessing game**, inspired by Skribbl.io.
