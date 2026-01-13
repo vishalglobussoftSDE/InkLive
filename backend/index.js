@@ -17,8 +17,16 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
 
-  socket.on("draw", (data) => {
-    socket.broadcast.emit("draw", data);
+  socket.on("draw-start", (data) => {
+    socket.broadcast.emit("draw-start", data);
+  });
+
+  socket.on("draw-move", (data) => {
+    socket.broadcast.emit("draw-move", data);
+  });
+
+  socket.on("draw-end", () => {
+    socket.broadcast.emit("draw-end");
   });
 
   socket.on("disconnect", () => {
